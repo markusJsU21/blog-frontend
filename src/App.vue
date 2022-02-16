@@ -6,3 +6,10 @@
     <router-view/>
   </div>
 </template>
+
+<style>
+
+p{
+  font-size: 3rem;
+}
+</style>

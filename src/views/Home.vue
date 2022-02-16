@@ -11,7 +11,6 @@
     <button v-if="authData" @click="showPosts">toggle posts</button>
     <button @click="inputUser = true">Click to create account</button>
     <button v-if="inputUser" @click="createUser">Create account</button>
-    {{authData}}
     <div class="posts" v-if="printPosts">{{posts.data.posts[0].content}}</div>
     
   </div>

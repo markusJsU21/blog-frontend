@@ -19,7 +19,7 @@
 <script>
 export default {
   data() {return{
-    email: 'darrin.lebsack@yahoo.com',
+    email: 'angelica.kassulke@hotmail.com',
     name: '',
     password: 'grillkorv',
     printPosts: false,

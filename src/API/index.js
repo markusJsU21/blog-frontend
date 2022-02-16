@@ -18,3 +18,10 @@ export async function getPosts(token){
 export async function createAccount(email, name, password){
     return await axios.post('/register', {email, name, password})
 }
+
+export async function createPost(title, content){
+    return await axios.post('/posts', title, content)
+}
+export async function uploadImg(img, id){
+    return await axios.post(`/posts/${id}`, img)
+}

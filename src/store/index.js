@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     authData: null,
     posts: [],
+    profileImg: null,
+    tempPost: null
   },
   mutations: {
     saveAuthData(state, data){
@@ -15,6 +17,12 @@ export default new Vuex.Store({
     },
     showPosts(state, posts){
       state.posts = posts
+    },
+    saveProfilePic(state, img){
+      state.profileImg = img
+    },
+    createTempPost(state, post){
+      state.tempPost = post
     }
   },
   actions: {
@@ -38,8 +46,15 @@ export default new Vuex.Store({
     async showPosts(context){
       const response = await API.getPosts()
       context.commit('showPosts', response)
+    },
+    async uploadImg(context, img){
+      const post = await API.createPost('New Profile Picture', 'You uploaded a new profile picture')
+      context.commit('createTempPost', post)
+      const response = await API.uploadImg(img, context.state.tempPost.id)
+      context.commit('saveProfilePic', response)
     }
   },
+  
 })
 
 //Token sparas i axios och behöver inte skickas med till API.getPosts

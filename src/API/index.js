@@ -14,3 +14,7 @@ export async function login(email, password){
 export async function getPosts(token){
     return await axios.get('/posts', token)
 }
+
+export async function createAccount(email, name, password){
+    return await axios.post('/register', {email, name, password})
+}

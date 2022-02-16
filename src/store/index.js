@@ -26,6 +26,15 @@ export default new Vuex.Store({
 
       context.commit('saveAuthData', response.data)
     },
+    async createAccount(context, credentials){
+      const response = await API.createAccount(
+        credentials.email, credentials.name, credentials.password
+      )
+      API.saveToken(response.data.token)
+
+      context.commit('saveAuthData', response.data)
+
+    },
     async showPosts(context){
       const response = await API.getPosts()
       context.commit('showPosts', response)

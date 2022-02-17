@@ -12,11 +12,24 @@
     <button @click="inputUser = true">Click to create account</button>
     <button v-if="inputUser" @click="createUser">Create account</button>
     <div class="posts" v-if="printPosts">{{posts.data.posts[0].content}}</div>
-    
+
+    <form @submit.prevent="createPost">
+      <input type="text" v-model="blogPost.title">
+      <input type="text" v-model="blogPost.content">
+      <button>Create post</button>
+    </form>
+
+    <div v-if="posts">
+    {{posts[0].title}} {{posts[0].content}}
+    </div>
   </div>
+
+
+
 </template>
 
 <script>
+import Actions from '@/store/action.types.js'
 export default {
   data() {return{
     email: 'angelica.kassulke@hotmail.com',
@@ -24,6 +37,10 @@ export default {
     password: 'grillkorv',
     printPosts: false,
     inputUser: false,
+    blogPost:{
+      title: '',
+      comment: ''
+    }
   } 
   },
   computed:{
@@ -31,7 +48,6 @@ export default {
       return this.$store.state.authData
     },
     posts(){
-      
       return this.$store.state.posts
     }
   },
@@ -45,6 +61,9 @@ export default {
     showPosts(){
       this.printPosts = !this.printPosts
       this.$store.dispatch('showPosts') 
+    },
+    createPost(){
+      this.$store.dispatch(Actions.CREATE_POST, {title: this.blogPost.title, content: this.blogPost.content})
     }
   }
 }

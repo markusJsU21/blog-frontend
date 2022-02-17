@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as API from '@/API'
+// import * as API from '@/API'
+import * as API from '@/API/mock.js'
+import Mutations from '@/store/mutation.types.js'
+import Actions from '@/store/action.types.js'
+
 
 Vue.use(Vuex)
 
@@ -23,6 +27,9 @@ export default new Vuex.Store({
     },
     createTempPost(state, post){
       state.tempPost = post
+    },
+    [Mutations.SAVE_POST](state, post){
+      state.posts.push(post)
     }
   },
   actions: {
@@ -52,6 +59,10 @@ export default new Vuex.Store({
       context.commit('createTempPost', post)
       const response = await API.uploadImg(img, context.state.tempPost.id)
       context.commit('saveProfilePic', response)
+    },
+    async [Actions.CREATE_POST](context, {title, content}){
+      const response = await API.createPost({title, content})
+      context.commit(Mutations.SAVE_POST, response)
     }
   },
   
